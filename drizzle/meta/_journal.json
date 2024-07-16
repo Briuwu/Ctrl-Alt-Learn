@@ -15,6 +15,13 @@
       "when": 1720424210605,
       "tag": "0001_tense_spencer_smythe",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1720521336083,
+      "tag": "0002_glossy_puppet_master",
+      "breakpoints": true
     }
   ]
 }
