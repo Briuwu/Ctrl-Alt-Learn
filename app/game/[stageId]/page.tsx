@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-const GamePage = () => {
+const StagePage = () => {
   return redirect("/stages");
 };
-export default GamePage;
+export default StagePage;
