@@ -15,7 +15,7 @@ export const usersTable = pgTable("users_table", {
   coins: integer("coins").notNull().default(0),
   xp: integer("xp").notNull().default(0),
   currentLevel: integer("current_level").notNull().default(1),
-  avatar_id: integer("avatar_id")
+  avatarId: integer("avatar_id")
     .notNull()
     .references(() => avatarsTable.id),
   createdAt: timestamp("created_at").notNull().defaultNow(),
@@ -23,7 +23,7 @@ export const usersTable = pgTable("users_table", {
 
 export const usersRelations = relations(usersTable, ({ one }) => ({
   avatar: one(avatarsTable, {
-    fields: [usersTable.avatar_id],
+    fields: [usersTable.avatarId],
     references: [avatarsTable.id],
   }),
 }));
@@ -112,29 +112,29 @@ export const usersAchievementsRelations = relations(
   })
 );
 
-export const pvpMatchesTable = pgTable("pvp_matches_table", {
-  id: serial("id").primaryKey(),
-  player1Id: integer("player1_id").references(() => usersTable.id),
-  player2Id: integer("player2_id").references(() => usersTable.id),
-  winnerId: integer("winner_id").references(() => usersTable.id),
-  startTime: timestamp("start_time").notNull().defaultNow(),
-  endTime: timestamp("end_time"),
-});
+// export const pvpMatchesTable = pgTable("pvp_matches_table", {
+//   id: serial("id").primaryKey(),
+//   player1Id: integer("player1_id").references(() => usersTable.id),
+//   player2Id: integer("player2_id").references(() => usersTable.id),
+//   winnerId: integer("winner_id").references(() => usersTable.id),
+//   startTime: timestamp("start_time").notNull().defaultNow(),
+//   endTime: timestamp("end_time"),
+// });
 
-export const pvpMatchesRelations = relations(pvpMatchesTable, ({ one }) => ({
-  player1: one(usersTable, {
-    fields: [pvpMatchesTable.player1Id],
-    references: [usersTable.id],
-  }),
-  player2: one(usersTable, {
-    fields: [pvpMatchesTable.player2Id],
-    references: [usersTable.id],
-  }),
-  winner: one(usersTable, {
-    fields: [pvpMatchesTable.winnerId],
-    references: [usersTable.id],
-  }),
-}));
+// export const pvpMatchesRelations = relations(pvpMatchesTable, ({ one }) => ({
+//   player1: one(usersTable, {
+//     fields: [pvpMatchesTable.player1Id],
+//     references: [usersTable.id],
+//   }),
+//   player2: one(usersTable, {
+//     fields: [pvpMatchesTable.player2Id],
+//     references: [usersTable.id],
+//   }),
+//   winner: one(usersTable, {
+//     fields: [pvpMatchesTable.winnerId],
+//     references: [usersTable.id],
+//   }),
+// }));
 
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;

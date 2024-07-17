@@ -15,7 +15,10 @@ export const HeroSection = () => {
           enhances your Web Development Skills!
         </p>
         <SignedOut>
-          <SignUpButton mode="modal">
+          <SignUpButton
+            mode="modal"
+            fallbackRedirectUrl={"/character-selection"}
+          >
             <Button className="bg-light-green text-black border-2 border-black drop-shadow-small mt-6 py-6 font-bold uppercase text-lg">
               Play Now!
             </Button>
@@ -26,7 +29,7 @@ export const HeroSection = () => {
             asChild
             className="bg-light-green text-black border-2 border-black drop-shadow-small mt-6 py-6 font-bold uppercase text-lg"
           >
-            <Link href="/stages">Play Now!</Link>
+            <Link href="/character-selection">Play Now!</Link>
           </Button>
         </SignedIn>
       </div>

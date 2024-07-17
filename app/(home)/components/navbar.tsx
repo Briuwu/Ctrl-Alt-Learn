@@ -46,7 +46,10 @@ export const Navbar = () => {
             </SignOutButton>
           </SignedIn>
           <SignedOut>
-            <SignUpButton mode="modal">
+            <SignUpButton
+              mode="modal"
+              fallbackRedirectUrl={"/character-selection"}
+            >
               <Button className="bg-light-blue text-black font-bold uppercase border-x-2 border-black rounded-none p-6">
                 Login
               </Button>
