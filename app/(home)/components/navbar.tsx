@@ -1,5 +1,11 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  SignedIn,
+  SignedOut,
+  SignOutButton,
+  SignUpButton,
+} from "@clerk/nextjs";
 
 export const Navbar = () => {
   return (
@@ -29,9 +35,23 @@ export const Navbar = () => {
               </Button>
             </li>
           </ul>
-          <Button className="bg-light-blue text-black font-bold uppercase border-x-2 border-black rounded-none p-6">
-            Login
-          </Button>
+          <SignedIn>
+            <SignOutButton>
+              <Button
+                variant={"destructive"}
+                className="text-white font-bold uppercase border-x-2 border-black rounded-none p-6"
+              >
+                Logout
+              </Button>
+            </SignOutButton>
+          </SignedIn>
+          <SignedOut>
+            <SignUpButton mode="modal">
+              <Button className="bg-light-blue text-black font-bold uppercase border-x-2 border-black rounded-none p-6">
+                Login
+              </Button>
+            </SignUpButton>
+          </SignedOut>
         </div>
       </nav>
     </header>

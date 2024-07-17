@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
+import { SignedIn, SignedOut, SignUpButton } from "@clerk/nextjs";
 import Image from "next/image";
+import Link from "next/link";
 
 export const HeroSection = () => {
   return (
@@ -12,9 +14,21 @@ export const HeroSection = () => {
           An immersive and engaging web-based 2D learning gamified platform that
           enhances your Web Development Skills!
         </p>
-        <Button className="bg-light-green text-black border-2 border-black drop-shadow-small mt-6 py-6 font-bold uppercase text-lg">
-          Play Now!
-        </Button>
+        <SignedOut>
+          <SignUpButton mode="modal">
+            <Button className="bg-light-green text-black border-2 border-black drop-shadow-small mt-6 py-6 font-bold uppercase text-lg">
+              Play Now!
+            </Button>
+          </SignUpButton>
+        </SignedOut>
+        <SignedIn>
+          <Button
+            asChild
+            className="bg-light-green text-black border-2 border-black drop-shadow-small mt-6 py-6 font-bold uppercase text-lg"
+          >
+            <Link href="/stages">Play Now!</Link>
+          </Button>
+        </SignedIn>
       </div>
       <div>
         <Image

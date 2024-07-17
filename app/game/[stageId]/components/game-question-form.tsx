@@ -43,7 +43,7 @@ export function GameQuestionForm({ onHandleCorrect }: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="text-xs space-y-2 bg-white p-4 rounded"
+        className="text-xs space-y-1 bg-white p-4 rounded"
       >
         <FormField
           control={form.control}
@@ -57,7 +57,7 @@ export function GameQuestionForm({ onHandleCorrect }: Props) {
                 <Input
                   placeholder="place your answer"
                   {...field}
-                  className="text-xs max-w-sm p-2"
+                  className="text-xs max-w-40 p-2"
                 />
               </FormControl>
               <FormMessage className="text-xs" />
