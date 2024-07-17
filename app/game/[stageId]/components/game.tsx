@@ -10,10 +10,10 @@ export const Game = () => {
   const [isCorrect, setIsCorrect] = useState(false);
 
   useEffect(() => {
-    animate("#character", { x: 150 }, { duration: 2 });
+    animate("#character", { x: 100 }, { duration: 2 });
 
     if (isCorrect) {
-      animate("#character", { x: 1200 }, { duration: 8 });
+      animate("#character", { x: 1000 }, { duration: 6 });
     }
   }, [isCorrect]);
 
@@ -22,7 +22,7 @@ export const Game = () => {
   };
 
   return (
-    <div ref={scope}>
+    <div ref={scope} className="z-20 overflow-hidden">
       <Character />
       <GameQuestion onHandleCorrect={handleCorrect} />
     </div>

@@ -41,23 +41,32 @@ export function GameQuestionForm({ onHandleCorrect }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="text-xs space-y-2 bg-white p-4 rounded"
+      >
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
+              <FormLabel className="text-sm">
                 What is the correct answer to this question?
               </FormLabel>
               <FormControl>
-                <Input placeholder="place your answer" {...field} />
+                <Input
+                  placeholder="place your answer"
+                  {...field}
+                  className="text-xs max-w-sm p-2"
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-xs" />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button variant={"ghost"} type="submit" className="text-xs">
+          Submit
+        </Button>
       </form>
     </Form>
   );

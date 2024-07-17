@@ -6,7 +6,7 @@ type Props = {
 
 export const GameQuestion = ({ onHandleCorrect }: Props) => {
   return (
-    <div className="max-w-lg">
+    <div className="relative z-20 p-4">
       <GameQuestionForm onHandleCorrect={onHandleCorrect} />
     </div>
   );
