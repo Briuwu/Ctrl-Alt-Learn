@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 import {
   boolean,
   integer,
+  pgEnum,
   pgTable,
   serial,
   text,
@@ -40,14 +41,20 @@ export const levelsTable = pgTable("levels_table", {
   requiredXp: integer("required_xp").notNull(),
 });
 
+export const challengeTypeEnum = pgEnum("challengetype", [
+  "learning",
+  "mini-challenge",
+  "boss",
+]);
+
 export const challengesTable = pgTable("challenges_table", {
   id: serial("id").primaryKey(),
   levelId: integer("level_id")
     .notNull()
     .references(() => levelsTable.id),
-  challengeType: text("challenge_type").notNull(),
+  challengeType: challengeTypeEnum("challengetype"),
   challengeDescription: text("challenge_description").notNull(),
-  correct_answer: text("correct_answer").notNull(),
+  correctAnswer: text("correct_answer").notNull(),
   xp_reward: integer("xp_reward").notNull(),
   coins_reward: integer("coins_reward").notNull(),
 });

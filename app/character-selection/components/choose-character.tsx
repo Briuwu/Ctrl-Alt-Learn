@@ -27,10 +27,10 @@ export const ChooseCharacter = () => {
     <div className="flex flex-col gap-20">
       <div className="grid md:grid-cols-2 md:gap-10 gap-5">
         <button
-          onClick={() => setSelectedCharacter(2)}
+          onClick={() => setSelectedCharacter(1)}
           className={cn(
             "border border-black p-5 grid place-content-center hover:bg-gray-200",
-            selectedCharacter === 2 && "bg-gray-200"
+            selectedCharacter === 1 && "bg-gray-200"
           )}
         >
           <Image
@@ -42,10 +42,10 @@ export const ChooseCharacter = () => {
           />
         </button>
         <button
-          onClick={() => setSelectedCharacter(1)}
+          onClick={() => setSelectedCharacter(2)}
           className={cn(
             "border border-black p-5 grid place-content-center hover:bg-gray-200",
-            selectedCharacter === 1 && "bg-gray-200"
+            selectedCharacter === 2 && "bg-gray-200"
           )}
         >
           <Image

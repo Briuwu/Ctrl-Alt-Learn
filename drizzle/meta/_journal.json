@@ -22,6 +22,48 @@
       "when": 1720521336083,
       "tag": "0002_glossy_puppet_master",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1721448429952,
+      "tag": "0003_huge_joshua_kane",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1721448542136,
+      "tag": "0004_fair_shotgun",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1721449064884,
+      "tag": "0005_fair_typhoid_mary",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1721452047482,
+      "tag": "0006_nice_bullseye",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1721452182501,
+      "tag": "0007_easy_romulus",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1721452313541,
+      "tag": "0008_sturdy_power_man",
+      "breakpoints": true
     }
   ]
 }
