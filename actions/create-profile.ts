@@ -22,11 +22,11 @@ export async function handleCreateProfile(selectedCharacter: number) {
     .insert(usersTable)
     .values({
       username: user.fullName!,
+      avatarId: selectedCharacter,
       email: user.emailAddresses[0].emailAddress,
       coins: 0,
       xp: 0,
       currentLevel: 1,
-      avatarId: selectedCharacter,
     })
     .execute();
 

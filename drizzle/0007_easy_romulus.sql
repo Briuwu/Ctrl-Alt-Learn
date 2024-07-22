@@ -1,1 +1,0 @@
-ALTER TABLE "challenges_table" ALTER COLUMN "challenge_type" DROP NOT NULL;

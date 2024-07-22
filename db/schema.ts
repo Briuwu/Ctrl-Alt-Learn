@@ -1,3 +1,4 @@
+import { QuestionData } from "@/types";
 import { relations } from "drizzle-orm";
 import {
   boolean,
@@ -7,6 +8,7 @@ import {
   serial,
   text,
   timestamp,
+  jsonb,
 } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users_table", {
@@ -35,40 +37,54 @@ export const avatarsTable = pgTable("avatars_table", {
   avatarImage: text("avatar_image").notNull(),
 });
 
-export const levelsTable = pgTable("levels_table", {
+export const stagesTable = pgTable("stages_table", {
   id: serial("id").primaryKey(),
   levelName: text("level_name").notNull().unique(),
   requiredXp: integer("required_xp").notNull(),
+  stageBg: text("stage_bg").notNull(),
 });
 
-export const challengeTypeEnum = pgEnum("challengetype", [
+export const stagesRelations = relations(stagesTable, ({ many }) => ({
+  levels: many(levelsTable),
+}));
+``;
+export const levelTypeEnum = pgEnum("level_type", [
   "learning",
   "mini-challenge",
   "boss",
+  "reward",
 ]);
 
-export const challengesTable = pgTable("challenges_table", {
+export const levelStatusEnum = pgEnum("level_status", [
+  "locked",
+  "unlocked",
+  "completed",
+]);
+
+export const levelsTable = pgTable("levels_table", {
   id: serial("id").primaryKey(),
-  levelId: integer("level_id")
+  stageId: integer("stage_id")
     .notNull()
-    .references(() => levelsTable.id),
-  challengeType: challengeTypeEnum("challengetype"),
-  challengeDescription: text("challenge_description").notNull(),
-  correctAnswer: text("correct_answer").notNull(),
-  xp_reward: integer("xp_reward").notNull(),
-  coins_reward: integer("coins_reward").notNull(),
+    .references(() => stagesTable.id),
+  levelType: levelTypeEnum("level_type").notNull(),
+  levelDescription: text("level_description").notNull(),
+  isLearning: boolean("is_learning").notNull().default(false),
+  isReward: boolean("is_reward").notNull().default(false),
+  questions: jsonb("questions").$type<QuestionData[]>(),
+  levelNumber: integer("level_number").unique().notNull(),
+  status: levelStatusEnum("status").notNull().default("locked"),
 });
 
-export const challengesRelations = relations(challengesTable, ({ one }) => ({
-  level: one(levelsTable, {
-    fields: [challengesTable.levelId],
-    references: [levelsTable.id],
+export const levelsRelations = relations(levelsTable, ({ one, many }) => ({
+  stage: one(stagesTable, {
+    fields: [levelsTable.stageId],
+    references: [stagesTable.id],
   }),
 }));
 
 export const userChallengesTable = pgTable("user_challenges_table", {
   id: serial("id").primaryKey(),
-  challengeId: integer("challenge_id").references(() => challengesTable.id),
+  levelId: integer("level_id").references(() => levelsTable.id),
   userId: integer("user_id").references(() => usersTable.id),
   completionTime: timestamp("completion_time").notNull().defaultNow(),
   completed: boolean("completed").notNull().default(false),
@@ -77,13 +93,13 @@ export const userChallengesTable = pgTable("user_challenges_table", {
 export const userChallengesRelations = relations(
   userChallengesTable,
   ({ one }) => ({
-    challenge: one(challengesTable, {
-      fields: [userChallengesTable.challengeId],
-      references: [challengesTable.id],
-    }),
     user: one(usersTable, {
       fields: [userChallengesTable.userId],
       references: [usersTable.id],
+    }),
+    level: one(levelsTable, {
+      fields: [userChallengesTable.levelId],
+      references: [levelsTable.id],
     }),
   })
 );
@@ -145,3 +161,4 @@ export const usersAchievementsRelations = relations(
 
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
+export type Levels = typeof levelsTable.$inferSelect;

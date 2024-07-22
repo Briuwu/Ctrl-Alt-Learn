@@ -1,1 +1,0 @@
-DROP TABLE "learnings_table";

@@ -1,1 +1,0 @@
-ALTER TABLE "challenges_table" RENAME COLUMN "challenge_type" TO "challengetype";

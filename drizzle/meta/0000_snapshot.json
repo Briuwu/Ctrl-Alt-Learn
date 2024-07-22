@@ -1,11 +1,11 @@
 {
-  "id": "39b1583b-43c2-425e-9473-5629435c6ee1",
+  "id": "085c453d-167c-471c-97d1-9269c9099953",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.posts_table": {
-      "name": "posts_table",
+    "public.achievements_table": {
+      "name": "achievements_table",
       "schema": "",
       "columns": {
         "id": {
@@ -14,43 +14,246 @@
           "primaryKey": true,
           "notNull": true
         },
-        "title": {
-          "name": "title",
+        "achievement_name": {
+          "name": "achievement_name",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
-        "content": {
-          "name": "content",
+        "achievement_description": {
+          "name": "achievement_description",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
-        "user_id": {
-          "name": "user_id",
+        "xp_reward": {
+          "name": "xp_reward",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
+        "coins_reward": {
+          "name": "coins_reward",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         }
       },
       "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "achievements_table_achievement_name_unique": {
+          "name": "achievements_table_achievement_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "achievement_name"
+          ]
+        }
+      }
+    },
+    "public.avatars_table": {
+      "name": "avatars_table",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "avatar_name": {
+          "name": "avatar_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "avatar_image": {
+          "name": "avatar_image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "avatars_table_avatar_name_unique": {
+          "name": "avatars_table_avatar_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "avatar_name"
+          ]
+        }
+      }
+    },
+    "public.levels_table": {
+      "name": "levels_table",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "stage_id": {
+          "name": "stage_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "level_type": {
+          "name": "level_type",
+          "type": "level_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "level_description": {
+          "name": "level_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_learning": {
+          "name": "is_learning",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "is_reward": {
+          "name": "is_reward",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "questions": {
+          "name": "questions",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
       "foreignKeys": {
-        "posts_table_user_id_users_table_id_fk": {
-          "name": "posts_table_user_id_users_table_id_fk",
-          "tableFrom": "posts_table",
+        "levels_table_stage_id_stages_table_id_fk": {
+          "name": "levels_table_stage_id_stages_table_id_fk",
+          "tableFrom": "levels_table",
+          "tableTo": "stages_table",
+          "columnsFrom": [
+            "stage_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.stages_table": {
+      "name": "stages_table",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "level_name": {
+          "name": "level_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "required_xp": {
+          "name": "required_xp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stage_bg": {
+          "name": "stage_bg",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "stages_table_level_name_unique": {
+          "name": "stages_table_level_name_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "level_name"
+          ]
+        }
+      }
+    },
+    "public.user_challenges_table": {
+      "name": "user_challenges_table",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "level_id": {
+          "name": "level_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "completion_time": {
+          "name": "completion_time",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "completed": {
+          "name": "completed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_challenges_table_level_id_levels_table_id_fk": {
+          "name": "user_challenges_table_level_id_levels_table_id_fk",
+          "tableFrom": "user_challenges_table",
+          "tableTo": "levels_table",
+          "columnsFrom": [
+            "level_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "user_challenges_table_user_id_users_table_id_fk": {
+          "name": "user_challenges_table_user_id_users_table_id_fk",
+          "tableFrom": "user_challenges_table",
           "tableTo": "users_table",
           "columnsFrom": [
             "user_id"
@@ -58,7 +261,69 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.users_achievements_table": {
+      "name": "users_achievements_table",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "achievement_id": {
+          "name": "achievement_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "achieved_at": {
+          "name": "achieved_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "users_achievements_table_user_id_users_table_id_fk": {
+          "name": "users_achievements_table_user_id_users_table_id_fk",
+          "tableFrom": "users_achievements_table",
+          "tableTo": "users_table",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "users_achievements_table_achievement_id_achievements_table_id_fk": {
+          "name": "users_achievements_table_achievement_id_achievements_table_id_fk",
+          "tableFrom": "users_achievements_table",
+          "tableTo": "achievements_table",
+          "columnsFrom": [
+            "achievement_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
           "onUpdate": "no action"
         }
       },
@@ -75,15 +340,9 @@
           "primaryKey": true,
           "notNull": true
         },
-        "name": {
-          "name": "name",
+        "username": {
+          "name": "username",
           "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "age": {
-          "name": "age",
-          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
@@ -92,12 +351,67 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "coins": {
+          "name": "coins",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "xp": {
+          "name": "xp",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "current_level": {
+          "name": "current_level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        },
+        "avatar_id": {
+          "name": "avatar_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "users_table_avatar_id_avatars_table_id_fk": {
+          "name": "users_table_avatar_id_avatars_table_id_fk",
+          "tableFrom": "users_table",
+          "tableTo": "avatars_table",
+          "columnsFrom": [
+            "avatar_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "users_table_username_unique": {
+          "name": "users_table_username_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "username"
+          ]
+        },
         "users_table_email_unique": {
           "name": "users_table_email_unique",
           "nullsNotDistinct": false,
@@ -108,7 +422,18 @@
       }
     }
   },
-  "enums": {},
+  "enums": {
+    "public.level_type": {
+      "name": "level_type",
+      "schema": "public",
+      "values": [
+        "learning",
+        "mini-challenge",
+        "boss",
+        "reward"
+      ]
+    }
+  },
   "schemas": {},
   "_meta": {
     "columns": {},
